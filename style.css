@@ -5,7 +5,9 @@
   font-family: "Clash Grotesk", sans-serif;
   color: #e3dcff;
 }
-
+html {
+  overflow-x: hidden;
+}
 :root {
   color-scheme: dark;
 }
