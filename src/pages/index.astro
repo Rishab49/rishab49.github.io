@@ -1,0 +1,41 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import FloatingIcon from "../components/FloatingIcon.astro";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body
+		style="background-image:url(../../public/grain.svg),linear-gradient(to right, rgba(255, 0, 0, 0.2), rgba(0, 0, 255, 0.2)),linear-gradient(#151515,#151515)"
+	>
+		<Header />
+		<div
+			class="flex items-center justify-center w-full h-[calc(100vh_-_120px)] p-4"
+			style="background: "
+		>
+			
+			<!-- <FloatingIcon>
+				svelte
+			</FloatingIcon> -->
+			
+			<div class="flex flex-col items-start justify-center gap-4">
+				<h1 class="text-3xl">Namaste</h1>
+				<p class="font-heading max-w-[55ch]">
+					I am Raj from India and I am a self proclaimed Front-end
+					Developer interested in web technologies, I spend my spare
+					time with patch(my old laptop) on some web framework’s issue
+					section. I write blogs about my learnings and I am a
+					minimalist. You can find me on Linkedin, Twitter and Github.
+					See you there!
+				</p>
+			</div>
+		</div>
+		<Footer />
+	</body>
+</html>
