@@ -1,15 +1,79 @@
-h1,h2,h3,h4,h5,h6{
-	@apply font-heading font-semibold text-white;
-}
-p{
-	@apply font-body text-white text-sm;
-}
-body{
-	@apply bg-primary
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
-*{
-	box-sizing: border-box;
-	margin:0;
-	padding:0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	@apply font-heading font-semibold text-white;
+}
+
+h1 {
+	@apply text-6x;
+}
+
+h2 {
+	@apply text-5x;
+}
+
+h3 {
+	@apply text-4x;
+}
+
+h4 {
+	@apply text-3x;
+}
+
+h5 {
+	@apply text-2x leading-[150%]; 
+}
+
+h6 {
+	@apply text-1x;
+}
+
+
+p,
+li,
+a {
+	@apply font-body text-white text-1x;
+}
+
+body {
+	@apply bg-primary;
+}
+
+.content p,
+li {
+	@apply text-1.3x text-white leading-[150%];
+}
+
+.content>h3 {
+	@apply mt-4;
+}
+
+.content a {
+	@apply underline;
+}
+
+.content pre {
+	@apply p-4 rounded-md;
+}
+
+code {
+	@apply font-heading;
+}
+
+.svg-image {
+	height: 24px;
+	width: 24px;
+}
+
+ol {
+	@apply list-decimal md:px-8 px-4;
 }

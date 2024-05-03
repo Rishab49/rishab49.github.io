@@ -17,11 +17,11 @@ const posts = (await getCollection("blog")).sort(
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body
-		style="background-image:url(../../public/grain.svg),linear-gradient(to right, rgba(255, 0, 0, 0.2), rgba(0, 0, 255, 0.2)),linear-gradient(#151515,#151515)"
+		style="background-image:url(/grain.svg),linear-gradient(to right, rgba(255, 0, 0, 0.2), rgba(0, 0, 255, 0.2)),linear-gradient(#151515,#151515)"
 	>
 		<Header />
 		<main class="p-8 flex flex-col gap-4 min-h-[calc(100vh_-_120px)]">
-			<h1 class="text-3xl">Blogs</h1>
+			<h2>Blogs</h2>
 			<section>
 				<ul>
 					{
@@ -29,10 +29,10 @@ const posts = (await getCollection("blog")).sort(
 							<li>
 								<a
 									href={`/blog/${post.slug}/`}
-									class="flex sm:items-center sm:justify-between items-start justify-center p-4 sm:flex-row flex-col"
+									class="flex sm:items-center sm:justify-between items-start justify-center sm:p-4 p-2 sm:flex-row flex-col gap-4"
 								>
-									<h4 class="text-xl min-w-max">{post.data.title}</h4>
-									<p class="text-white text-sm font-heading min-w-max">
+									<h5>{post.data.title}</h5>
+									<p class="text-white">
 										published on{" "}
 										<FormattedDate
 											date={post.data.pubDate}
