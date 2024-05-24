@@ -19,6 +19,9 @@ export default {
 				"5x":"300%",
 				"6x":"350%",
 				"1.3x":"130%"
+			},
+			backgroundImage:{
+				"noise-pattern":"url(/grain.svg),linear-gradient(to right, rgba(255, 0, 0, 0.2), rgba(0, 0, 255, 0.2)),linear-gradient(#151515,#151515)"
 			}
 		},
 	},

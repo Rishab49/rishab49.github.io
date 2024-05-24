@@ -10,12 +10,94 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
-	<body>
+	<body class="bg-noise-pattern">
 		<Header />
 		<div
-			class="flex items-center justify-center w-full h-[calc(100vh_-_120px)] p-4"
+			class="flex flex-col items-center justify-center w-full h-[calc(100vh_-_120px)] p-4 flex-wrap gap-12"
 		>
-		<h1>No works to show :(</h1>
+			<a href="https://water-stamp.vercel.app/" class="text-black">
+				<div
+					class="min-w-[300px] relative flex items-center justify-center p-2 bg-gray-300 rounded-ss-none rounded-se-[0.875rem] rounded-es-[0.875rem] rounded-ee-[0.875rem] w-fit"
+				>
+					<div
+						class="flex flex-row absolute top-0 left-0 -translate-y-6"
+					>
+						<div
+							class="bg-gray-300 rounded-md flex items-center justify-center p-2 text-xs"
+						>
+							React
+						</div>
+						<div
+							class="bg-gray-300 rounded-md flex items-center justify-center p-2 text-xs"
+						>
+							CanvasAPI
+						</div>
+						<div
+							class="bg-gray-300 rounded-md flex items-center justify-center p-2 text-xs"
+						>
+							TailwindCSS
+						</div>
+					</div>
+					<div
+						class="bg-primary p-4 rounded-[0.375rem] flex flex-col gap-2 content w-full"
+					>
+						<h6>WaterStamp</h6>
+					</div>
+				</div>
+			</a>
+			<a href="https://github.com/Rishab49/drawing_collaborator" class="text-black">
+				<div
+				class="min-w-[300px] relative flex items-center justify-center p-2 bg-gray-300 rounded-ss-none rounded-se-[0.875rem] rounded-es-[0.875rem] rounded-ee-[0.875rem] w-fit"
+			>
+				<div class="flex flex-row absolute top-0 left-0 -translate-y-6">
+					<div
+						class="bg-gray-300 rounded-md flex items-center justify-center p-2 text-xs"
+					>
+						React
+					</div>
+					<div
+						class="bg-gray-300 rounded-md flex items-center justify-center p-2 text-xs"
+					>
+						Socket.IO
+					</div>
+					<div
+						class="bg-gray-300 rounded-md flex items-center justify-center p-2 text-xs"
+					>
+						TailwindCSS
+					</div>
+				</div>
+
+				<div
+					class="bg-primary p-4 rounded-[0.375rem] flex flex-col gap-2 content w-full"
+				>
+					<h6 class="min-w-max">Drawing Collaborator</h6>
+				</div>
+			</div>
+		</a>
+		<a href="https://snipmate.vercel.app/" class="text-black">
+			<div
+				class="min-w-[300px] relative flex items-center justify-center p-2 bg-gray-300 rounded-ss-none rounded-se-[0.875rem] rounded-es-[0.875rem] rounded-ee-[0.875rem] w-fit"
+			>
+				<div class="flex flex-row absolute top-0 left-0 -translate-y-6">
+					<div
+						class="bg-gray-300 rounded-md flex items-center justify-center p-2 text-xs"
+					>
+						SvelteKit
+					</div>
+					<div
+						class="bg-gray-300 rounded-md flex items-center justify-center p-2 text-xs"
+					>
+						TailwindCSS
+					</div>
+				</div>
+
+				<div
+					class="bg-primary p-4 rounded-[0.375rem] flex flex-col gap-2 content w-full"
+				>
+					<h6 class="min-w-max">SnipMate</h6>
+				</div>
+			</div>
+		</a>
 		</div>
 		<Footer />
 	</body>
