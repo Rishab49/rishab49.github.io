@@ -1,0 +1,70 @@
+---
+title: 'Write data to file from terminal in node'
+description: 'In this blog post we will learn about how we can use nodejs to write data to file from terminal in nodejs'
+pubDate: 'May 26 2024'
+author: 'Rishab Raj'
+---
+import SingleLineCode from "../../components/SingleLineCode.astro";
+import Note from '../../components/Note.astro';
+
+### Intro
+Recently I was reading the open source code of consola an open source command line utlity to create beautiful command line prompts at that time I wondered how can we write inputs from terminal to a file in nodejs and after searching a bit I got the answer and all we need is 3 node builtin packages <SingleLineCode>node:readline</SingleLineCode>, <SingleLineCode>node:fs</SingleLineCode> and <SingleLineCode>node:process</SingleLineCode>.
+
+### Theory
+So before writing code there are some basic concepts which we need to understand, 
+1. First one is that a <SingleLineCode>ReadableStream</SingleLineCode> is something from which we can read data it could be a file stream or a stdin 
+2. second one is <SingleLineCode>WritableStream</SingleLineCode> to which we can write data, it could be a stream leading to a file or stdout. 
+<br/>
+So to better understand it suppose stream as a river and if we want to write fishes(data) to it and this stream is leading to a pond(file/terminal) then we will use <SingleLineCode>WritableStream</SingleLineCode> to pipe our fishes(data) to it. If we want to get fishes(data) from the stream which is into the pond(file/terminal) then we will use <SingleLineCode>ReadableStream</SingleLineCode> to pipe fishes.
+
+### Techincal Stuff
+so now we are going to make a simple terminal app where we can write something on terminal and it gets written into the output file specified by the user. We will create this small terminal app using 2 functions <SingleLineCode>init</SingleLineCode> and <SingleLineCode>read</SingleLineCode>. 
+
+#### init
+init function will let the user specify the output filename and call the <SingleLineCode>read</SingleLineCode> function which will take the input from the user and write it to the output file.
+
+lets start with <SingleLineCode>init</SingleLineCode> function which is an async function because it involves promises and it includes only 3 lines of code.
+```js
+async function init() {
+  let ask = readline.createInterface({ input: stdin, output: stdout});
+  let output = await ask.question("enter filename to which you want to write data : ");
+  read(output);
+}
+```
+
+In first line we are creating an instance of [readline](https://nodejs.org/docs/latest/api/readline.html) which takes one required option <SingleLineCode>input</SingleLineCode> which is used to specify the input stream we are using <SingleLineCode>stdin</SingleLineCode> imported from <SingleLineCode>node:process</SingleLineCode>, we are also passing the output stream to which methods like <SingleLineCode>prompt()</SingleLineCode> will write data and it is <SingleLineCode>stdout</SingleLineCode> in our case also imported from same package.
+<br/>
+In second line we are using the <SingleLineCode>readline</SingleLineCode> instance's <SingleLineCode>question()</SingleLineCode> to ask the question and save the response in the <SingleLineCode>output</SingleLineCode> variable. 
+
+<Note heading="Note" content="Here we can use `await` in second line because we are importing the readline from `node:readline/promises` and not from just `node:readline`."/>
+
+In the third line we are calling the <SingleLineCode>read</SingleLineCode> function by passing output filename as parameter.
+<br/>
+
+#### read
+now lets create <SingleLineCode>read</SingleLineCode> function which involves only 3 statements and an event handler.
+```js
+function read(output) {
+    let reader = readline.createInterface({ input: stdin });
+    output = createWriteStream(output);
+
+    reader.prompt();
+    reader.on("line", (data) => {
+        output?.write(data + "\n");
+        reader.prompt()
+    });
+}
+```
+
+In first line we are again creating a <SingleLineCode>readline</SingleLineCode> interface using <SingleLineCode>stdin</SingleLineCode> as input stream(remember streams) we can also specify file streams here to read data from.
+<br/>
+In second line we are creating a write stream to a file using <SingleLineCode>createWriteStream</SingleLineCode> imported from <SingleLineCode>node:fs</SingleLineCode> by passing the name of output file as named by the user.
+<br/>
+In third line we are calling <SingleLineCode>prompt</SingleLineCode> function which will let the user enter the text in terminal which should get written inside the output file.
+<br/>
+In event handler we are adding a <SingleLineCode>line</SingleLineCode> event handler which will get trigerred when user enters the text and press the <SingleLineCode>enter</SingleLineCode> key, inside the handler we are taking the data written by the user and writing that into the write stream to write it to the output file and again we are calling the <SingleLineCode>prompt</SingleLineCode> method so that user can enter the next line of text and thats it we are done!
+<br/>
+at last we just have to call <SingleLineCode>init</SingleLineCode> function to start the process as soon as we start the script.
+```js
+await init();
+```
