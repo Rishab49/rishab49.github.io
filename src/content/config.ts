@@ -12,5 +12,4 @@ const blog = defineCollection({
 		author: z.string(),
 	}),
 });
-
 export const collections = { blog };
