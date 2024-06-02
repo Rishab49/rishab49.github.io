@@ -10,4 +10,9 @@ import react from '@astrojs/react';
 export default defineConfig({
   site: 'https://rishab49.github.io',
   integrations: [react(), mdx(), sitemap(), tailwind()],
+  vite:{
+    ssr:{
+      noExternal: ["react-icons"],
+    }
+  }
 });

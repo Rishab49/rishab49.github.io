@@ -1,5 +1,5 @@
 ---
-import SearchBar from "../../content/components/SearchBar";
+import {SearchBar as Elem} from "../../content/components/SearchBar";
 ---
 
 <!doctype html>
@@ -7,6 +7,6 @@ import SearchBar from "../../content/components/SearchBar";
     <body
         class="h-screen w-screen flex items-start justify-center bg-gray-900 pt-20"
     >
-        <SearchBar client:only="react" />
+        <Elem client:only="react" />
     </body>
 </html>

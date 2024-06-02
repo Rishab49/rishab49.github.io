@@ -15,7 +15,7 @@ const items = [
     "Tomato sauce"
 ];
 
-function SearchBar() {
+export function SearchBar() {
 
     const [filteredResults, setFilteredResults] = useState([]);
     function filter(e) {
@@ -79,5 +79,3 @@ function SearchBar() {
         }
     </div >
 }
-
-export default SearchBar;

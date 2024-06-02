@@ -5,7 +5,7 @@ import { AnimatePresence, motion, spring } from "framer-motion"
 import { useState } from "react";
 
 
-function DraggableDropDown() {
+export function DraggableDropDown() {
 
     const [isActive, setIsActive] = useState(false);
     const [listItems, setListItems] = useState([{
@@ -56,5 +56,3 @@ function DraggableDropDown() {
             </motion.div>}</AnimatePresence>
     </div>
 }
-
-export default DraggableDropDown;

@@ -7,7 +7,7 @@ const listItems = [
     "Templates"
 ]
 
-function DropDown() {
+export function DropDown() {
     const [selectedItem, setSelectedItem] = useState("Components");
     const [isActive, setIsActive] = useState(false);
     return <motion.div className="flex flex-col font-body bg-gray-950 p-1 rounded-md" layout >
@@ -32,5 +32,3 @@ function DropDown() {
         </motion.div>
     </motion.div>
 }
-
-export default DropDown;

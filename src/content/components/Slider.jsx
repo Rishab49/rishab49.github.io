@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
-function Slider() {
+export const  Slider = ()  => {
 
     const sliderElementRef = useRef(null);
     const [value, setValue] = useState("1");
@@ -16,5 +16,3 @@ function Slider() {
         </div>
     </div>
 }
-
-export default Slider;
