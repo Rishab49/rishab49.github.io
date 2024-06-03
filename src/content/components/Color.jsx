@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 export function Color() {
 
     const [activeColor, setActiveColor] = useState("bg-red-500");
+    const [isActive, setIsActive] = useState(false);
     const colors = [
         "bg-red-500",
         "bg-blue-500",
@@ -11,10 +12,13 @@ export function Color() {
         "bg-orange-500",
         "bg-gray-500"
     ];
-    const [isActive, setIsActive] = useState(false);
 
-    return <div className="relative p-2 border-gray-800 border-4 rounded-2xl flex justify-center">
-        <div className={`h-11 w-11 ${activeColor} rounded-2xl`} onClick={() => setIsActive(val => !val)}></div>
+
+    return <div 
+    className="relative p-2 border-gray-800 border-4 rounded-2xl flex justify-center">
+        <div 
+        className={`h-11 w-11 ${activeColor} rounded-2xl`} 
+        onClick={() => setIsActive(val => !val)}></div>
         <AnimatePresence>
             {isActive &&
                 <motion.div className="absolute flex items-center justify-center gap-4  h-fit w-fit bg-transparent rounded-2xl overflow-hidden p-2 top-16 border-gray-800 border-4"
@@ -44,6 +48,8 @@ export function Color() {
                                 setIsActive(false);
                             }} key={e}></div>
                     })}
-                </motion.div>}</AnimatePresence>
+                </motion.div>
+                }
+                </AnimatePresence>
     </div>
 }

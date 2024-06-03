@@ -1,0 +1,16 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import {Quiz as Elem} from "../../content/components/Quiz";
+---
+
+<!doctype html>
+<html>
+    <head>
+		<BaseHead title={""} description={""} />
+	</head>
+    <body
+        class="h-screen w-screen flex items-center justify-center bg-gray-900"
+    >
+        <Elem client:only="react" />
+    </body>
+</html>
