@@ -1,0 +1,55 @@
+---
+title: 'Concurrent vs Distributed Systems'
+description: 'How is it that your computer can’t handle a few chrome tabs while hotstar can serve millions of users simultaneously? By the end of this short blog you will understand the difference between concurrent systems(your computer) and distributed systems(hotstar).'
+pubDate: 'April 11 2026'
+author: 'Rishab Raj'
+---
+
+import Article from "../../components/Article.astro"
+
+<div class="flex flex-col gap-10 py-10">
+<Article>
+## Introduction
+How is it that your computer can’t handle a few chrome tabs while hotstar can serve millions of users simultaneously? By the end of this short blog you will understand the difference between concurrent systems(your computer) and distributed systems(hotstar).
+</Article>
+
+<Article>
+#### Concurrent Systems 
+Concurrent Systems are made up of only one computer, inside that computer we will have multiple processes running with multiple threads using the multiple CPU cores(if present) to execute multiple processes simultaneously.
+
+Today when we are working on our laptops, it works as a concurrent system, executing multiple instructions simultaneously. It manages your browser, editors, games etc simultaneously.
+
+There are various challenges associated with concurrent systems which execute multiple processes simultaneously like deadlock, livelock, race conditions etc.
+</Article>
+
+
+
+
+<Article>
+#### Distributed Systems
+Distributed systems are made up of more than one computer connected over a network, which execute in coordination with each other giving a feeling that the given task is getting executed by a single incredibly powerful computer.
+
+From streaming services to online editors to AI agents all runs on distributed systems spread across the world providing reliable and fast experience to the user.
+
+There are various challenges associated with distributed systems like network failure or congestion, process running failing without your knowledge, security etc
+</Article>
+
+
+
+<Article>
+#### Why do we need a distributed system when we have a concurrent system?
+If a concurrent system can execute multiple processes then why cannot we just vertically scale it to execute the task we want?
+
+And the answer to this question is that distributed systems provide us few advantages which are as follows:
+
+Reliability: The biggest disadvantage of a concurrent system is reliability, which means even if we vertically scale it to infinity(which is not possible as we have hardware limit), the whole system can crash any time,While individual computers in a distributed system might fail, it's highly unlikely they will all fail at the same time(Fault tolerance).
+Performance: Running the process on multiple computers gives us performance advantage over running them on a single computer as the processes does not have to share hardware and wait for their turn to execute and if we have multiple computers distributed across the world we can get data from the nearest one increasing the performance(edge computing).
+Nature of today's world: we inherently have distributed systems in form of mobiles phones, cloud, IoT etc., so it is not a choice but an integral part of today's world.
+</Article>
+
+
+<Article>
+## Conclusion
+In this way concurrent systems provide you with great and smooth experience locally while distributed systems allow you to have great performance and reliability.
+</Article>
+</div>
