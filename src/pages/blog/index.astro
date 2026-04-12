@@ -16,23 +16,21 @@ const posts = (await getCollection("blog")).sort(
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
-	<body
-		style="background-image:url(/grain.svg),linear-gradient(to right, rgba(255, 0, 0, 0.2), rgba(0, 0, 255, 0.2)),linear-gradient(#151515,#151515)"
-	>
+	<body  class="bg-black">
 		<Header />
 		<main class="p-8 flex flex-col gap-4 min-h-[calc(100vh_-_120px)]">
 			<h2>Blogs</h2>
 			<section>
 				<ul>
 					{
-						posts.map((post) => (
+						posts.reverse().map((post) => (
 							<li>
 								<a
 									href={`/blog/${post.slug}/`}
 									class="flex sm:items-center sm:justify-between items-start justify-center sm:p-4 p-2 sm:flex-row flex-col gap-4"
 								>
-									<h5>{post.data.title}</h5>
-									<p class="text-white">
+									<h3>{post.data.title}</h3>
+									<p>
 										published on{" "}
 										<FormattedDate
 											date={post.data.pubDate}

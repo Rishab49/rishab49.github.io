@@ -1,0 +1,56 @@
+---
+title: 'Two Generals Problem'
+description: 'How is it that your computer can’t handle a few chrome tabs while hotstar can serve millions of users simultaneously? By the end of this short blog you will understand the difference between concurrent systems(your computer) and distributed systems(hotstar).'
+pubDate: 'April 12 2026'
+author: 'Rishab Raj'
+---
+
+import OL from "../../components/OL.astro"
+import Article from "../../components/Article.astro"
+
+
+<div class="flex flex-col gap-10 py-10">
+<Article>
+# Introduction
+Two General’s Problem is a classic thought experiment used in computer science to showcase how 100% consensus is impossible to achieve in a distributed system because of the unreliable communication channel.
+</Article>
+
+<Article>
+# Two Generals Problem
+Two general problem is a fairly simple thought experiment in which we have two generals who are waiting with their army on two hills tops separated by a valley and waiting for the confirmation from other general to attack the city located between the hills, but the problem here is that 
+
+<OL listItems={[
+    "they must attack at once in order to capture the city",
+    "they can only attack if both of them are sure that other is going to attack",
+    "The messenger may get intercepted"
+]}/>
+	
+Now one may think that this is a fairly simple problem as General A just needs to send the messenger to General B and with the date they are going to attack and once the messenger reaches General B, he will be informed.
+
+But the problem here is how General A will know that General B got the information?, one may say that again general B has to send a messenger with confirmation that General B got the information in this 2 cases can happen
+
+<OL listItems={[
+    "The messenger reaches the General A",
+    "The messenger got captured"
+]}/>
+
+In both of these cases how can General B(who is sending the messenger) come to know if the messenger reaches General A or not?, and the answer is that again he has to wait for the confirmation from General A and again we have 2 cases
+<OL listItems={[
+    "The messenger reaches the General B",
+    "The messenger got captured"
+]}/>
+Now again to solve this problem General B has to send a confirmation and General A has to wait. So we can see that we have a paradox here in which both of the generals, even after agreeing on a plan, are waiting infinitely for the confirmation of the confirmation(or Recursive Acknowledgement) from the other General.
+
+One can argue that they can solve this problem by sending more than one messenger, in this case also even if it does reduce the probability of the messenger getting captured, it does not have 100% guarantee. 
+
+And what if multiple messengers reach the other General with the same confirmation, how should he react?, should he send confirmation for all of them or just for one of them. Now when sending the confirmation again he has to send multiple messengers to reduce the probability of their capture, and again the same infinite loop of confirmation will go on.
+
+One solution to the redundant confirmation messengers is that the sender will ignore the redundant confirmation for the same plan but here one more problem is that after sending multiple messengers how much time should he wait for the confirmation? and again how he will confirm to the sender that he received the confirmation(again send the confirmation :?)
+</Article>
+
+
+<Article>
+# Conclusion
+Two General’s Problem is a simple but effective thought experiment to showcase how distributed systems operate with uncertainty and how it is impossible to achieve 100% coordination over unreliable communication channels. We do not try to solve this problem but we design a solution like TCP which is reliable enough to get our work done.
+</Article>
+</div>

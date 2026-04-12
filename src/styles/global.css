@@ -10,39 +10,39 @@ h3,
 h4,
 h5,
 h6 {
-	@apply font-heading font-semibold text-white;
+	@apply font-heading;
 }
 
+
+/* Using the mobile-first approach */
+
 h1 {
-	@apply text-6x;
+  /* Main Title: Big and bold, but scales down on mobile */
+  @apply text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-textPrimary;
 }
 
 h2 {
-	@apply text-5x;
+  /* Section Headings: e.g., "Introduction" */
+  @apply text-2xl md:text-3xl lg:text-4xl font-bold text-textPrimary;
 }
 
 h3 {
-	@apply text-4x;
+  /* Sub-sections */
+  @apply text-xl md:text-2xl font-semibold text-textPrimary;
 }
-
-h4 {
-	@apply text-3x;
-}
-
-h5 {
-	@apply text-2x leading-[150%]; 
-}
-
-h6 {
-	@apply text-1x;
-}
-
 
 p,
 li,
-a {
-	@apply font-body text-white text-1x;
+a  {
+  /* Body Text: The most important for readability */
+  @apply text-sm md:text-lg leading-relaxed text-zinc-400 font-body;
 }
+
+.meta-text {
+  /* Author and Date */
+  @apply text-sm font-medium text-zinc-500;
+}
+
 
 body {
 	@apply bg-primary;
@@ -50,7 +50,7 @@ body {
 
 .content p,
 li {
-	@apply text-1.3x text-white leading-[150%];
+	@apply  text-sm md:text-lg text-textPrimary leading-[150%];
 }
 
 .content>h3 {
@@ -76,4 +76,8 @@ code {
 
 ol {
 	@apply list-decimal md:px-8 px-4;
+}
+
+article ul{
+	list-style: disc;
 }

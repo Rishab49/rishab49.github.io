@@ -1,0 +1,18 @@
+---
+
+const { listItems } = Astro.props;
+
+
+---
+
+
+
+<div class="px-4">
+    <ol>
+      {listItems.map((item: any) => <li>
+        <div class="flex flex-row gap-4">
+        <p>{item}</p>
+        </div>
+        </li>)  }
+    </ul>
+</div>
