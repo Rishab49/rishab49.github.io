@@ -9,7 +9,7 @@ const { listItems, listDesc } = Astro.props;
 
 <div class="px-4">
     <ul class="list-disc">
-      {listItems.map((item: any, index: string | number) => <li>
+      {listItems.map((_: any, index: string | number) => <li>
         <div class="flex flex-row gap-4 list-disc">
         <p><span class="font-bold">{listItems[index]} </span>: {listDesc[index]}</p>
         </div>

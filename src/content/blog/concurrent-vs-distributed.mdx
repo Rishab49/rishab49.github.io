@@ -2,12 +2,44 @@
 title: 'Concurrent vs Distributed Systems'
 description: 'How is it that your computer can’t handle a few chrome tabs while hotstar can serve millions of users simultaneously? By the end of this short blog you will understand the difference between concurrent systems(your computer) and distributed systems(hotstar).'
 pubDate: 'April 11 2026'
-author: 'Rishab Raj'
+author: 'Rishab Raj' 
+jsonLD: {
+    "@context" : "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Concurrent vs Distributed Systems",
+    "description": "How is it that your computer can’t handle a few chrome tabs while hotstar can serve millions of users simultaneously? Understand the difference between concurrent and distributed systems.",
+    "author": {
+      "@type": "Person",
+      "name": "Rishab Raj"
+    },
+    "datePublished": "2026-04-11",
+    "proficiencyLevel": "Beginner",
+    "articleSection": "Distributed Computing",
+    "about": [
+      {
+        "@type": "DefinedTerm",
+        "name": "Concurrency",
+        "sameAs": "https://en.wikipedia.org/wiki/Concurrency_(computer_science)"
+      },
+      {
+        "@type": "DefinedTerm",
+        "name": "Distributed computing",
+        "sameAs": "https://en.wikipedia.org/wiki/Distributed_computing"
+      }
+    ],
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://rishab49.github.io/blog/concurrent-vs-distributed-systems" 
+    }
+}
 ---
 
 import Article from "../../components/Article.astro"
 import UL from "../../components/UL.astro"
 
+ 
+
+ <script type="application/ld+json" is:inline set:html={JSON.stringify(frontmatter.jsonLD)} />
 
 <div class="flex flex-col gap-10 py-10">
 <Article>

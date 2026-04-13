@@ -1,7 +1,7 @@
 import * as http from "node:http";
 
 
-function handleRequest(req,res){
+function handleRequest(_,res){
     // console.log(req);
     res.writeHead(200);
     res.end("Hello bhai");

@@ -1,0 +1,116 @@
+---
+title: 'Byzantine Generals Problem'
+description: 'The Byzantine Generals Problem is a classic thought experiment which illustrates the challenge of how reaching a consensus in a distributed network where some nodes can me malicious or unreliable'
+pubDate: 'April 13 2026'
+author: 'Rishab Raj'
+---
+
+import OL from "../../components/OL.astro"
+import Article from "../../components/Article.astro"
+
+<div class="flex flex-col gap-10 py-10">
+<Article>
+# Introduction
+The Byzantine Generals Problem is a classic thought experiment which illustrates the challenge of how reaching a consensus in a distributed network where some nodes can me malicious or unreliable.
+</Article>
+
+
+<Article>
+# Byzantines Generals Problem
+<Article>
+## The Scenario
+lets assume 4 generals encamped around a city called Byzantine and they are planning to capture a city. To succeed they should agree on a single plan: ATTACK or RETREAT
+
+<OL listItems={
+    [
+"If they attack simultaneously they will win",
+"If they attack in fragement they will lose"
+    ]
+}/>
+
+
+One General will act as a Commander and sends the message to other Generals to attack and other Generals will reiterate the Commanders message to other Generals so that they can decide from majority.
+</Article> 
+<Article>
+## The Problem
+Now the problem here is that one General cannot trust another General as their intention can be malicious and they might try to confuse other Generals about their collective decision of whether to attack or retreat. The goal of this experiement is to come up with a solution such that honest generals can come to a consensus even if there are traitors.
+ </Article>
+ <Article>
+## Example 1
+
+Now let us try to understand this with an example.
+ 
+Suppose there are 4 Generals - A, B, C and D.
+
+General A thought that it is a good time to attack the city, so he sent three messengers to General B, General C and General D respectively and asked them to ATTACK!, but General B is having malicous intention and he in order to confuse the General C and General D again send a messenger with messenge RETREAT! to General D and general A, and ATTACK to general C. Other 2 Generals who are honest reiterate the correct message to other Generals. In this case we have following
+ 
+
+ <OL listItems={
+    [
+"General A -> [ATTACK to General B, ATTACK to geenral C, ATTACK to general D ]",
+"General B -> [RETREAT to General A, ATTACK to general C, RETREAT to general D ] ",
+"General C -> [ATTACK to General A, ATTACK to geenral B, ATTACK to general D ]",
+"General D -> [ATTACK to General A, ATTACK to geenral B, ATTACK to general C ]"
+    ]
+}/>
+
+
+
+ 
+ 
+Individual conclusions of each Generals
+ <OL listItems={
+    [
+"General A -> 1 RETREAT and 2 ATTACK hence ATTACK",
+"General B -> 3 ATTACK does not matter as TRAITOR",
+"General C -> 3 ATTACK hence ATTACK",
+"General D -> 2 ATTACK and 1 RETREAT hence ATTACK",
+    ]
+}/>
+
+ 
+ 
+Final Consensus : ATTACK!
+ 
+So Even if we have 1 Traitor among 4 Generals, honest generals can come to a consensus.
+
+
+</Article>
+<Article>
+## Example 2
+
+Now I have chosen 4 generals with 1 traitor because in distributed system with m traitors we need to have total of 3m + 1 generals to come to a consensus.
+ 
+We can verify this by performing the same experiement with 3 Generals with 1 traitor in that case suppose if General A acting a leader sends ATTACK to other 2 generals B and C, but B being traitor sends RETREAT to C and ATTACK to A and General C being honest reiterates the correct message, we have following
+ 
+ 
+
+
+ <OL listItems={
+    [
+"General A -> [ATTACK to General B, ATTACK to general C]",
+"General B -> [ATTACK to General A, RETREAT to general C]",
+"General C -> [ATTACK to General A, ATTACK to general B]"
+    ]
+}/>
+ 
+Individual conclusions of each Generals
+
+
+ <OL listItems={
+    [
+"General A -> 2 ATTACK hence attack",
+"General B -> 2 ATTACK does not matter as traitor",
+"General C -> 1 ATTACK and 1 RETREAT cannot decide"
+    ]
+}/>
+ 
+ 
+hence here we have 2 honest generals who cannot come to a consensus.
+</Article>
+ </Article>
+# Conclusion
+ 
+</div>
+
+
