@@ -3,15 +3,61 @@ title: 'Byzantine Generals Problem'
 description: 'The Byzantine Generals Problem is a classic thought experiment which illustrates the challenge of how reaching a consensus in a distributed network where some nodes can me malicious or unreliable'
 pubDate: 'April 13 2026'
 author: 'Rishab Raj'
+
+jsonLD: {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Understanding the Byzantine Generals Problem and Byzantine Fault Tolerance (BFT)",
+  "description": "An in-depth look at the Byzantine Generals Problem (BGP), exploring how distributed systems reach consensus despite malicious nodes using the 3m + 1 rule.",
+  "author": {
+    "@type": "Person",
+    "name": "Rishab Raj"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://rishab49.github.io/blog/byzantine-generals-problem/"
+  },
+  "keywords": "Byzantine Generals Problem, BGP, Byzantine Fault Tolerance, BFT, Distributed Systems, Consensus Mechanisms, 3m+1 Rule",
+  "articleSection": "Distributed Systems & Blockchain Technology",
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Byzantine Generals Problem",
+      "sameAs": "https://en.wikipedia.org/wiki/Byzantine_fault"
+    },
+    {
+      "@type": "Thing",
+      "name": "Consensus (computer science)",
+      "sameAs": "https://en.wikipedia.org/wiki/Consensus_(computer_science)"
+    }
+  ],
+  "educationalLevel": "Intermediate",
+  "hasPart": [
+    {
+      "@type": "HasPart",
+      "name": "The 3m + 1 Rule for BFT",
+      "description": "Explaining the mathematical requirement for consensus where total nodes must be greater than three times the number of traitors."
+    }
+  ],
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "xpath": [
+      "/html/head/title",
+      "/html/meta[@name='description']/@content"
+    ]
+  }
+}
 ---
 
 import OL from "../../components/OL.astro"
 import Article from "../../components/Article.astro"
 
+<script type="application/ld+json" is:inline set:html={JSON.stringify(frontmatter.jsonLD)} />
+
 <div class="flex flex-col gap-10 py-10">
 <Article>
 # Introduction
-The Byzantine Generals Problem is a classic thought experiment which illustrates the challenge of how reaching a consensus in a distributed network where some nodes can me malicious or unreliable.
+The **Byzantine Generals Problem(BGP)** is a classic thought experiment which illustrates the challenge of how reaching a consensus in a distributed network In any distributed systemfew nodes can be malicious or unreliable or compromised. Solving this problem is essential for maintaining the integrity of a such a system.
 </Article>
 
 
@@ -19,58 +65,55 @@ The Byzantine Generals Problem is a classic thought experiment which illustrates
 # Byzantines Generals Problem
 <Article>
 ## The Scenario
-lets assume 4 generals encamped around a city called Byzantine and they are planning to capture a city. To succeed they should agree on a single plan: ATTACK or RETREAT
+lets assume 4 generals encamped around a city and they are planning to capture a city. To succeed they should agree on a single plan: attack or retreat.
 
 <OL listItems={
     [
 "If they attack simultaneously they will win",
-"If they attack in fragement they will lose"
+"If they attack in fragment they will lose"
     ]
 }/>
 
 
-One General will act as a Commander and sends the message to other Generals to attack and other Generals will reiterate the Commanders message to other Generals so that they can decide from majority.
+One General will act as a Commander and sends the message to other Generals to attack, and all the other Generals will reiterate the Commanders message to all other Generals so that they can decide from majority.
 </Article> 
 <Article>
 ## The Problem
-Now the problem here is that one General cannot trust another General as their intention can be malicious and they might try to confuse other Generals about their collective decision of whether to attack or retreat. The goal of this experiement is to come up with a solution such that honest generals can come to a consensus even if there are traitors.
+The core problem is **Trust**. In distributed system we cannot assume that all of the nodes are reliable. An unreliable or compromised node can send conflicting messages to different nodes to prevent a consensus. The goal of this experiment is to come up with a solution where honest Generals can come up to a conclusion even when we have few traitors.
  </Article>
  <Article>
 ## Example 1
 
 Now let us try to understand this with an example.
  
-Suppose there are 4 Generals - A, B, C and D.
+Suppose there are 4 Generals - A(Commander), B(Traitor), C and D.
 
-General A thought that it is a good time to attack the city, so he sent three messengers to General B, General C and General D respectively and asked them to ATTACK!, but General B is having malicous intention and he in order to confuse the General C and General D again send a messenger with messenge RETREAT! to General D and general A, and ATTACK to general C. Other 2 Generals who are honest reiterate the correct message to other Generals. In this case we have following
+General A thought that it is a good time to attack the city, so he sent three messengers to General B, General C and General D respectively and asked them to attack!, but General B is having malicous intention and he in order to confuse the General C and General D again send a messenger with messenge retreat! to General D and general A, and attack to general C. Other 2 Generals who are honest reiterate the correct message to other Generals. In this case we have following
  
 
  <OL listItems={
     [
-"General A -> [ATTACK to General B, ATTACK to geenral C, ATTACK to general D ]",
-"General B -> [RETREAT to General A, ATTACK to general C, RETREAT to general D ] ",
-"General C -> [ATTACK to General A, ATTACK to geenral B, ATTACK to general D ]",
-"General D -> [ATTACK to General A, ATTACK to geenral B, ATTACK to general C ]"
+"General A -> [attack to General B, attack to geenral C, attack to general D ]",
+"General B -> [retreat to General A, attack to general C, retreat to general D ] ",
+"General C -> [attack to General A, attack to geenral B, attack to general D ]",
+"General D -> [attack to General A, attack to geenral B, attack to general C ]"
     ]
 }/>
 
 
-
- 
- 
 Individual conclusions of each Generals
  <OL listItems={
     [
-"General A -> 1 RETREAT and 2 ATTACK hence ATTACK",
-"General B -> 3 ATTACK does not matter as TRAITOR",
-"General C -> 3 ATTACK hence ATTACK",
-"General D -> 2 ATTACK and 1 RETREAT hence ATTACK",
+"General A -> 1 retreat and 2 attack hence attack",
+"General B -> 3 attack does not matter as TRAITOR",
+"General C -> 3 attack hence attack",
+"General D -> 2 attack and 1 retreat hence attack",
     ]
 }/>
 
  
  
-Final Consensus : ATTACK!
+Final Consensus : **Attack!**
  
 So Even if we have 1 Traitor among 4 Generals, honest generals can come to a consensus.
 
@@ -79,18 +122,16 @@ So Even if we have 1 Traitor among 4 Generals, honest generals can come to a con
 <Article>
 ## Example 2
 
-Now I have chosen 4 generals with 1 traitor because in distributed system with m traitors we need to have total of 3m + 1 generals to come to a consensus.
+Now I have chosen 4 generals with 1 traitor because in distributed system with m traitors we need to have atleast total of 3m + 1 generals for consensus it is called **Byzantine Fault Tolerance(BFT)**.
  
-We can verify this by performing the same experiement with 3 Generals with 1 traitor in that case suppose if General A acting a leader sends ATTACK to other 2 generals B and C, but B being traitor sends RETREAT to C and ATTACK to A and General C being honest reiterates the correct message, we have following
+We can verify this by performing the same experiement with 3 Generals with 1 traitor in that case suppose if General A acting a Commander sends attack to other 2 generals B and C, but B being traitor sends retreat to C and attack to A and General C being honest reiterates the correct message, we have following
  
- 
-
 
  <OL listItems={
     [
-"General A -> [ATTACK to General B, ATTACK to general C]",
-"General B -> [ATTACK to General A, RETREAT to general C]",
-"General C -> [ATTACK to General A, ATTACK to general B]"
+"General A -> [attack to General B, attack to general C]",
+"General B -> [attack to General A, retreat to general C]",
+"General C -> [attack to General A, attack to general B]"
     ]
 }/>
  
@@ -99,9 +140,9 @@ Individual conclusions of each Generals
 
  <OL listItems={
     [
-"General A -> 2 ATTACK hence attack",
-"General B -> 2 ATTACK does not matter as traitor",
-"General C -> 1 ATTACK and 1 RETREAT cannot decide"
+"General A -> 2 attack hence attack",
+"General B -> 2 attack does not matter as traitor",
+"General C -> 1 attack and 1 retreat cannot decide"
     ]
 }/>
  
@@ -109,8 +150,11 @@ Individual conclusions of each Generals
 hence here we have 2 honest generals who cannot come to a consensus.
 </Article>
  </Article>
+
+ <Article>
 # Conclusion
- 
+By understanding **Byzantine Generals Problem(BGP)** and **Byzantine Fault Tolerance(BFT)**, we can understand the trustlessness in any type of distributed system and how a system with few unreliable participants can ensure that final data is secure and correct using BFT.
+  </Article>
 </div>
 
 
