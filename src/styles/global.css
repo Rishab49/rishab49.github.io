@@ -81,3 +81,9 @@ ol {
 article ul{
 	list-style: disc;
 }
+
+p > code {
+	padding: 0.25rem;
+	border-radius: 0.25rem;
+	background-color: #24292e;
+}

@@ -1,18 +1,16 @@
 ---
 
 const { listItems } = Astro.props;
-
+import { Markdown } from 'astro-remote';
 
 ---
 
 
 
 <div class="px-4">
-    <ol>
+    <ol class="flex flex-col gap-5">
       {listItems.map((item: any) => <li>
-        <div class="flex flex-row gap-4">
-        <p>{item}</p>
-        </div>
+        <p><Markdown content={item}/></p>
         </li>)  }
     </ul>
 </div>

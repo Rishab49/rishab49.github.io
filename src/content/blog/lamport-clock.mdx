@@ -1,0 +1,156 @@
+---
+title: 'Lamport Clock'
+description: 'A deep dive into logical clocks, Lamport timestamps, and how they solve the problem of event ordering in distributed environments.'
+pubDate: 'April 16 2026'
+author: 'Rishab Raj'
+
+
+jsonLD: {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Understanding Lamport Clocks in Distributed Systems",
+  "description": "A deep dive into logical clocks, Lamport timestamps, and how they solve the problem of event ordering in distributed environments.",
+  "author": {
+    "@type": "Person",
+    "name": "Rishab Raj",
+    "url": "https://rishab49.github.io/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Rishab's Tech Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://rishab49.github.io/logo.png"
+    }
+  },
+  "datePublished": "2026-04-16",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://rishab49.github.io/blog/lamport-clock"
+  },
+  "keywords": "Distributed Systems, Lamport Clock, Logical Clock, NTP, Event Ordering, Causality",
+  "articleSection": "Distributed Systems",
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Logical Clock"
+    },
+    {
+      "@type": "Thing",
+      "name": "Distributed Computing"
+    }
+  ],
+  "articleBody": "Introduction to logical clocks and the Lamport timestamp algorithm for synchronization in distributed systems."
+}
+
+---
+
+import Article from "../../components/Article.astro"
+import UL from "../../components/UL.astro"
+import OL from "../../components/OL.astro"
+
+
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(frontmatter.jsonLD)} />
+
+
+
+<div class="flex flex-col gap-10 py-10">
+<Article>
+# Introduction
+In distributed systems we have multiple nodes working together to appear as a single node but the problem arises with the ***Clock Synchronization***.
+
+Each node in the system has its own local clock. Even with protocols like NTP, we cannot guarantee perfect synchronization of time across nodes. Over time, clocks inevitably "drift" due to slight variations in hardware speed. When a node attempts to sync via NTP, the system time might suddenly jump forward or backward. 
+
+In Distributed Systems relying on physical time is dangerous because they cannot guarantee ***“happen-before”*** relationship which means if two events E1 and E2 occur one after another, the physical clock cannot ensure ***T(E1) < T(E2)***. This makes the physical clock inefficient for maintaining consistency across distributed systems.
+
+the timing of the node drifts due to the variation in the clock speed and when the node corrects the system timing using NTP protocol, either time of the system will suddenly jump forward or backward depending on the situation.
+</Article>
+
+
+
+
+<div class="flex flex-col gap-8 py-10">
+# Lamport Clock
+
+<Article>
+## What is Lamport Clock?
+To solve this problem Leslie Lamport came up with a logical clock called Lamport clock, which does not measure the time in seconds or milliseconds but measures the sequence of events.
+</Article>
+
+
+<Article>
+## How it works?
+Lamport Clock is a logical clock, which increments its value based on following 3 events:
+
+<UL listItems={[
+"Local Events",
+"Sending Events",
+"Receiving Events" 
+]}
+
+listDesc={[
+"Executing a task locally",
+"Sending a message to another node",
+"Receiving a message from another node"
+]}/>
+ 
+</Article>
+
+
+
+<Article>
+## Algorithm
+
+``` 
+on initialization do
+t = 0
+end on
+ 
+ on any event occurring at the local node do
+t = t + 1
+end on
+ 
+on request to send message m  do
+t = t + 1, send (t,m) via the underlying network link
+end on
+ 
+ 
+on receiving (t',m) via the underlying network link do
+t = max(t',t) + 1
+deliver m to the application
+end on
+```
+</Article>
+
+<Article>
+## Lamport Clock Example
+In a distributed system by using a Lamport clock’s logical timestamp, we are no longer dependent on some external atomic clock.	 
+We can understand how the Lamport clock works in a distributed system using a system with 3 Nodes A,B and C.
+All of these nodes have their own Logical clock initialized to 0.
+ 
+
+<OL listItems={[
+"Now suppose after executing for sometime the logical value of clock becomes 50 for Node A and then node A sends a message to node B.",
+"At the time of receiving the message the logical timestamp of Node B is 45. Once the node B receives the message it will compare the clock value of node A and node B and set the value of logical timestamp of node B equals to `max(T(nA), T(nB)) + 1`. In this way when comparing the logical time of local events as well as events from node A, we ensure that the logical time strictly increases, maintaining the causal order.",
+"Now suppose Node B executed for some time and then send a message to node C with logical timestamp value 80",
+"By that time the logical time of node C has reached 100, in this case again the node C will compare the timing of node B and node C and take max value and increment it by 1 and make it the current timestamp value of node C."
+]}/>
+ 
+</Article>
+
+<Article>
+## Drawbacks
+While being powerful, Lamport clock has one very significant limitation of ***causal independence***. If 2 events happen at the same time on different nodes without any communication then the 2 events may have the same logical timestamp. Same as the limitation of happens before relation, where `a -> b` implies `T(a) < T(B)`, the reverse is not true which means we cannot determine the exact relation between 2 events just by looking at their logical timestamps.
+To solve this problem, developers use Vector Clocks.
+</Article>
+
+</div>
+
+
+<Article>
+# Conclusion
+Lamport clocks provides simple yet effective way to manage event ordering and causality, making them a foundational concept in designing and implementing distributed systems 
+
+</Article>
+</div>
