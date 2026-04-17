@@ -77,14 +77,10 @@ If a concurrent system can execute multiple processes then why cannot we just ve
 And the answer to this question is that distributed systems provide us few advantages which are as follows:
 
 
-<UL listItems={[
-    "Reliability",
-    "Performance",
-    "Nature of today's world"
-]} listDesc={[
-   "The biggest disadvantage of a concurrent system is reliability, which means even if we vertically scale it to infinity(which is not possible as we have hardware limit), the whole system can crash any time,While individual computers in a distributed system might fail, it's highly unlikely they will all fail at the same time(Fault tolerance).",
-   "Running the process on multiple computers gives us performance advantage over running them on a single computer as the processes does not have to share hardware and wait for their turn to execute and if we have multiple computers distributed across the world we can get data from the nearest one increasing the performance(edge computing)." ,
-    "We inherently have distributed systems in form of mobiles phones, cloud, IoT etc., so it is not a choice but an integral part of today's world."
+<UL listDesc={[
+   " ***Reliability*** : The biggest disadvantage of a concurrent system is reliability, which means even if we vertically scale it to infinity(which is not possible as we have hardware limit), the whole system can crash any time,While individual computers in a distributed system might fail, it's highly unlikely they will all fail at the same time(Fault tolerance).",
+   " ***Performance***: Running the process on multiple computers gives us performance advantage over running them on a single computer as the processes does not have to share hardware and wait for their turn to execute and if we have multiple computers distributed across the world we can get data from the nearest one increasing the performance(edge computing)." ,
+    " ***Nature of today's world*** :We inherently have distributed systems in form of mobiles phones, cloud, IoT etc., so it is not a choice but an integral part of today's world."
 ]}/>
 </Article>
 

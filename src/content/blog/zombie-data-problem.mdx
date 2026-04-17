@@ -1,0 +1,144 @@
+---
+title: 'The Zombie Data Problem'
+description: 'A deep dive into logical clocks, Lamport timestamps, and how they solve the problem of event ordering in distributed environments.'
+pubDate: 'April 17 2026'
+author: 'Rishab Raj'
+
+jsonLD: {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Solving the Zombie Data Problem: Idempotence and Tombstones in Distributed Systems",
+  "description": "An expert guide on maintaining data consistency in distributed systems using idempotence, state reconciliation, and tombstones to prevent replica divergence.",
+  "author": {
+    "@type": "Person",
+    "name": "Rishab Raj",,
+    "url": "https://rishab49.github.io/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://rishab49.github.io/blog/zombie-data-problem/"
+  },
+  "keywords": "Distributed Systems, Idempotence, State Reconciliation, Tombstones, Zombie Data, Database Consistency, LWW",
+  "articleSection": "Distributed Systems Design",
+  "articleBody": "In distributed systems where multiple nodes work with each other using unreliable networks, ensuring data consistency is a primary challenge...",
+  "hasPart": [
+    {
+      "@type": "HowToSection",
+      "name": "Scenario 1: Partial Deletion",
+      "description": "Explains how a missed delete request leads to inconsistent node states."
+    },
+    {
+      "@type": "HowToSection",
+      "name": "Scenario 2: Missed Event",
+      "description": "Demonstrates why identical physical states can mask different event histories."
+    }
+  ],
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Idempotence"
+    },
+    {
+      "@type": "Thing",
+      "name": "Tombstone (Data Management)"
+    },
+    {
+      "@type": "Thing",
+      "name": "Eventual Consistency"
+    }
+  ]
+}
+---
+
+
+import Article from "../../components/Article.astro"
+import UL from "../../components/UL.astro"
+import OL from "../../components/OL.astro"
+
+
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(frontmatter.jsonLD)} />
+
+
+
+<div class="flex flex-col gap-10 py-10">
+<Article>
+# Introduction
+In distributed systems where multiple nodes work with each other using unreliable networks, ensuring data consistency is a primary challenge. When a network partition happens or packet drops, nodes can fall out of sync. To build a resilient system we write logic in such a manner that the system remains consistent regardless of how many times request was retried or which node receives the request.
+
+To achieve this we use the concept of Idempotence and state reconciliation.
+</Article>
+
+
+<Article>
+## Idempotence and Reconciliation:
+
+
+<UL listDesc={[
+"***Idempotence*** : Idempotence is a property of a system where an operation applied multiple times with the same parameters will have the same effects as applied only once.",
+"***State Reconcilation*** : The process where inconsistent nodes exchange the data to reach a common, agreed-upon state."
+]}/>
+
+</Article>
+
+
+<Article>
+<Article>
+# Example
+We can understand this using an example, Suppose we have a client X sending a request to 2 Database nodes Node A and Node B. 
+</Article>
+
+
+<Article>
+## Scenario 1 : Partial Deletion
+Consider a situation where a user likes a post. Both nodes receive the request and update their state. Later the client decided to unlike the post, resulting in a delete request being sent.
+
+
+
+<OL listItems={[
+"Node A receives both of the requests and removes the user.",
+"Node B missed the delete request."
+]
+}/>
+
+Result: The system is in an inconsistent state. Node A says the user is not present but Node B says it is. 
+</Article>
+
+<Article>
+## Scenario 2: Missed event
+Now, consider a different event where a user likes a post, but the request only reaches Node B. Physically, the system looks exactly the same as Scenario 1 (Node A is empty, Node B has the data).
+
+<OL listItems={[
+"Node A does not receive the request hence does not add the user",
+"Node B receives the request hence adds the user"
+]
+}/>
+
+
+Because these two different sequences of events, a failed delete and a failed add-result in the same state, the system becomes unpredictable. During reconciliation, the database cannot distinguish between a record that should be there and one that should stay deleted.
+</Article>
+</Article>
+
+
+
+<Article>
+# Solution
+To solve this problem we use logical timestamps and tombstones to maintain the consistency of our system.
+
+So while updating the like count in our database we will add a timestamp and a tombstone(which is a boolean value) along with the username to the database to depict the different state of the system.
+
+Using the above two attributes we can differentiate between the state of the system
+
+
+<UL listDesc={[
+    "***Increment*** : When we increment the like count, we will add value like this user -> (t1, true) in Node A and user -> (t2, true) in node B, in this way even if we are retrying the request it will get captured in the timestamp as timestamp will remain identical and along with an entry for a particular user it will have “true” tombstone.",
+    "***Decrement*** : When decrement like count, we will update the value as user -> (t3,false) this indicates that the user once liked the post but now it is unliked"
+]}/>
+
+
+In this way our system will be in different states depending upon the series of events and we can run reconciliation logic periodically. We sync both nodes of the database by comparing the timestamps of the values and we can decide whether to increment or decrement or like count in the final state depending upon the tombstone boolean. This approach is called LWW(Last Writer Wins).
+
+While tombstone solves the consistency problem it will take up storage space. In the production systems we run the compaction logic periodically to eventually delete the tombstones after we are certain that all the nodes are in sync.
+
+</Article>
+</div>
