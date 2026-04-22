@@ -1,0 +1,116 @@
+---
+title: 'Maths of Fault Tolerance'
+description: 'A deep dive into logical clocks, Lamport timestamps, and how they solve the problem of event ordering in distributed environments.'
+pubDate: 'April 22 2026'
+author: 'Rishab Raj'
+
+---
+
+import Article from "../../components/Article.astro"
+import UL from "../../components/UL.astro"
+
+
+<div class="flex flex-col gap-10 py-10">
+<Article>
+# Introduction
+In Distributed Systems, along with its other characteristics, one can observe that at any given moment few nodes are down, few are slow, and few nodes are unable to communicate with each other. This is the normal state of any large distributed system. The real challenge is not to ensure all nodes are up and running fine but to make the system work even if some of its nodes are down. 
+
+In order to achieve this goal we cannot rely on intuition but we need to rely on Probability and system design principles.
+</Article>
+
+
+
+<Article>
+# Probability of Faults
+
+In distributed system, Node can be down due to any of the following reasons:
+<UL listDesc={[
+"Node crashes",
+"Network partition",
+"Hardware issue",
+"Slow Node"
+]}/>
+
+It is due to the CAP theorem:
+<UL listDesc={[
+"Consistency",
+"Availability",
+"Partition Tolerance"
+]}/>
+
+We cannot ensure all three at any given time in a distributed system, so we need to make trade offs to ensure the Quorum of nodes is alive.
+
+Before understanding the Quorum we need to understand the probability of failure of the system.
+
+So suppose we a system with 
+
+
+<UL listDesc={[
+"Number of nodes(n) = 100",
+"Probability of single node failing(p) = 0.01"
+]}/>
+then we can have following results
+
+<UL listDesc={[
+"P(at least one node being faulty)  = 0.63",
+"P(All of the nodes being faulty is) = $$10^{-200}$$",
+"P(More than half of the nodes are faulty) = $$6 * 10^{-4}$$"
+]}/>
+
+As we increase the number of nodes in the system, the probability of
+
+<UL listDesc={[
+"At least 1 Node being down increases, in a large-scale distributed system we assume at least one of the nodes will be faulty at any given moment.",
+"All nodes being down decreases exponentially.",
+"More than half node is down decreases significantly (following binomial distribution)"
+]}/>
+
+## Quoram
+Quorum is the minimum number of nodes that must agree to consider an operation to be successful.
+
+For a read operation to be successful the read quorum(R) must agree and for the write operation to succeed the write quorum(W) must agree.
+
+`R + W > N`
+
+</Article>
+
+
+<Article>
+# Example
+
+We can understand the role of quorum using an example
+Suppose a client sends a write request to a system with 3 nodes.
+
+### Scenario1
+
+Request reached only one node in system
+
+As write quorum is not satisfied, which means the write request does not reach 2 or more nodes hence it is not successful and the client must retry the request
+
+### Scenario 2
+
+Write request reached two nodes
+
+In this case the write quorum is satisfied, even if one of the nodes which received the request is down, other 2 nodes are up and the system will resolve the conflict between the 2 instances of data and serve the result to the client.
+
+
+### Scenario 3
+
+Read after write reaches only 1 node
+
+In this case 2 nodes receive the write request but while reading the data those 2 nodes get down, we do not generally consider this scenario as explained earlier that the probability of majority of nodes being down is very low in a distributed system.
+
+</Article>
+
+
+<Article>
+# Conclusion
+So we can say that fault tolerance in distributed systems is hard but understanding the maths behind it makes it easy to achieve it as we do not have to keep all of the nodes alive is any given moment, we just have to make sure the majority of nodes are alive and our system will work as expected.
+</Article>
+
+
+
+
+
+
+</div>
